@@ -1,6 +1,12 @@
 package com.example.demo.api;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,4 +28,13 @@ public class PersonController {
 	public void insertPerson(@RequestBody Person person) {
 		personService.insertPerson(person);
 	}
-}
+	
+	@GetMapping
+	public List<Person> selectAllPeople(){
+		return personService.selectAllPeople();
+	}
+	@GetMapping(path = "{id}")
+	public Person selectPersonById(@PathVariable("id") UUID id){
+		return personService.selectPersonById(id).orElse(null);
+	}
+}	
